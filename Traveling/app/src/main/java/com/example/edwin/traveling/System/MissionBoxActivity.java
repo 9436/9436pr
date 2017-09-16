@@ -90,8 +90,8 @@ public class MissionBoxActivity extends AppCompatActivity {
 
         for(int i = 0 ; i < placeList.size() ; i++){
             place[i] = placeList.get(i);
-            locationB.setLatitude((double)place[i].getX());
-            locationB.setLongitude((double)place[i].getY());
+            locationB.setLatitude((double)place[i].getY());
+            locationB.setLongitude((double)place[i].getX());
             Log.d("distance","location: " + place[i].getY() + ", " + place[i].getX());
             distance[i] = locationA.distanceTo(locationB);
             Log.d("distance", i + ", " + distance[i]);
@@ -99,15 +99,15 @@ public class MissionBoxActivity extends AppCompatActivity {
         Log.d("distance", placeList.size() + " " + festivalList.size());
         for(int i = placeList.size(); i < placeList.size() + festivalList.size() ; i++){
             place[i] = festivalList.get(i);
-            locationB.setLatitude((double)place[i].getX());
-            locationB.setLongitude((double)place[i].getY());
+            locationB.setLatitude((double)place[i].getY());
+            locationB.setLongitude((double)place[i].getX());
             Log.d("distance","location: " + place[i].getY() + ", " + place[i].getX());
             distance[i] = locationA.distanceTo(locationB);
             Log.d("distance", i + ", " + distance[i]);
         }
 
         for(int i = 0 ; i < placeList.size() + festivalList.size() ; i++){
-            if(distance[i] < 30000){
+            if(distance[i] < 13201920f){
                 btn[i] = true;
             }
         }
