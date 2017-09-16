@@ -2,7 +2,10 @@ package com.example.edwin.traveling.System;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -38,10 +41,35 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     static int cle_img[] = {R.drawable.cle01,R.drawable.cle02,R.drawable.cle03,R.drawable.cle04,R.drawable.cle05};
     static boolean btn[] = {false, false, false, false, false};
 
+    private class PositionReceiver extends BroadcastReceiver {
+        public float latitude;
+        public float longitude;
+
+        public PositionReceiver(){
+            latitude = 0;
+            longitude = 0;
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent){
+            if(intent.getAction().equals("PosData")){
+                latitude = intent.getFloatArrayExtra("LA")[0];
+                longitude = intent.getFloatArrayExtra("LO")[0];
+            }
+        }
+    }
+
+    PositionReceiver positionReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        positionReceiver = new PositionReceiver();
+        IntentFilter filter = new IntentFilter("PosData");
+        registerReceiver(positionReceiver, filter);
+
 
         android.app.FragmentManager fragmentManager = getFragmentManager();
         MapFragment mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);

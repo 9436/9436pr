@@ -46,12 +46,12 @@ public class MissionBoxActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.missionboxactivity);
+
         positionReceiver = new PositionReceiver();
         IntentFilter filter = new IntentFilter("PosData");
         registerReceiver(positionReceiver, filter);
-
-        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.missionboxactivity);
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
