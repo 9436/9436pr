@@ -6,28 +6,34 @@
         android:icon="@drawable/quest"
         app:showAsAction="always" />
 
-    <item android:id="@+id/fest"
-        android:title="축제"
+    <item android:id="@+id/filterButton"
+        android:title="filter"
         android:icon="@drawable/filter"
-        app:showAsAction="never"/>
+        app:showAsAction="always">
 
-    <item android:id="@+id/tour"
-        android:title="여행지"
-        android:icon="@drawable/filter"
-        app:showAsAction="never"/>
+        <menu>
+            <item android:id="@+id/fest"
+                android:title="축제"
+                android:icon="@drawable/icon_menu_festival"/>
 
-    <item android:id="@+id/cult"
-        android:title="문화시설"
-        android:icon="@drawable/filter"
-        app:showAsAction="never"/>
+            <item android:id="@+id/tour"
+                android:title="여행지"
+                android:icon="@drawable/filter"/>
 
-    <item android:id="@+id/repo"
-        android:title="레포츠"
-        android:icon="@drawable/filter"
-        app:showAsAction="never"/>
+            <item android:id="@+id/cult"
+                android:title="문화시설"
+                android:icon="@drawable/filter"/>
 
-    <item android:id="@+id/food"
-        android:title="음식"
-        android:icon="@drawable/filter"
-        app:showAsAction="never"/>
+            <item android:id="@+id/repo"
+                android:title="레포츠"
+                android:icon="@drawable/filter" />
+
+            <item android:id="@+id/food"
+                android:title="음식"
+                android:icon="@drawable/filter"/>
+        </menu>
+
+    </item>
+
+
 </menu>

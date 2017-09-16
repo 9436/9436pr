@@ -106,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         for(int i=0;i<placeList.size();i++){
             TravelPlace cursor = placeList.get(i);
             LatLng point = new LatLng(cursor.getY(), cursor.getX());
-
             switch(cursor.getType()){
                 case TravelPlace.CULTURE:
                     drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_festival);
