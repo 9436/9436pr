@@ -1,0 +1,7 @@
+#Sat Sep 16 15:20:04 KST 2017
+base.0=C\:\\Users\\vskyl\\AndroidStudioProjects\\9436pr\\TriPlay\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_5f31de06efba661d6b874973de62521957595048
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=C\:\\Users\\vskyl\\AndroidStudioProjects\\9436pr\\TriPlay\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_ebb6b296c002b1ab8f6956511b3d3a226af4da3b\\classes.dex
+base.1=C\:\\Users\\vskyl\\AndroidStudioProjects\\9436pr\\TriPlay\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_ebb6b296c002b1ab8f6956511b3d3a226af4da3b
+file.0=C\:\\Users\\vskyl\\AndroidStudioProjects\\9436pr\\TriPlay\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_5f31de06efba661d6b874973de62521957595048\\classes.dex

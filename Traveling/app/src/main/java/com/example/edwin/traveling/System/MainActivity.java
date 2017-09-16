@@ -12,6 +12,7 @@ import android.os.SystemClock;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
     static int mission_img[] = {R.drawable.mis01,R.drawable.mis02,R.drawable.mis03,R.drawable.mis04,R.drawable.mis05};
     static int cle_img[] = {R.drawable.cle01,R.drawable.cle02,R.drawable.cle03,R.drawable.cle04,R.drawable.cle05};
+    static boolean btn[] = {false, false, false, false, false};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -13,28 +13,78 @@
     tools:context="com.example.edwin.traveling.System.MissionBoxActivity"
     android:weightSum="1">
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="47dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/darkm01"
+            android:id="@+id/imageView2"
+            android:layout_weight="1"
+            android:onClick="misbtn01"/>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/darkm02"
+            android:id="@+id/imageView3"
+            android:layout_weight="1"
+            android:onClick="misbtn02"/>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/darkm03"
+            android:id="@+id/imageView4"
+            android:layout_weight="1"
+            android:onClick="misbtn03"/>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/darkm04"
+            android:id="@+id/imageView5"
+            android:layout_weight="1"
+            android:onClick="misbtn04"/>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/darkm05"
+            android:id="@+id/imageView6"
+            android:layout_weight="1"
+            android:onClick="misbtn05"/>
+    </LinearLayout>
+
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="166dp"
-        app:srcCompat="@drawable/mis01"
-        android:id="@+id/missionimg"
-        android:onClick="NextImg"/>
+        android:layout_height="205dp"
+        app:srcCompat="@drawable/missionbaseimg"
+        android:id="@+id/missionimg" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <Button
-            android:text="clear"
+            android:background="@drawable/clearbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/clear"
             android:onClick="clear"
             android:layout_weight="1" />
 
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
         <Button
-            android:text="EXIT"
+            android:background="@drawable/exitbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/Exit"

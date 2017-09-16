@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="MHotdog3" size="1.000000 0.828125" />
+    <ImageTarget name="MHotdog2" size="1.000000 0.750000" />
+    <ImageTarget name="MHotdog1" size="1.000000 1.297357" />
+    <ImageTarget name="Happydub3" size="1.000000 0.747619" />
+    <ImageTarget name="Happydub2" size="1.000000 1.000000" />
+    <ImageTarget name="Happydub1" size="1.000000 0.993255" />
+  </Tracking>
+</QCARConfig>
