@@ -49,7 +49,7 @@ public class MissionBoxActivity extends AppCompatActivity {
                 Log.d("distance", "Position Receive:"+latitude+","+longitude);
                 // 내 좌표.
                 locationA.setLatitude((double)latitude);
-                locationA.setLatitude((double)longitude);
+                locationA.setLongitude((double)longitude);
             }
         }
     }
@@ -107,7 +107,7 @@ public class MissionBoxActivity extends AppCompatActivity {
         }
 
         for(int i = 0 ; i < placeList.size() + festivalList.size() ; i++){
-            if(distance[i] < 13201920f){
+            if(distance[i] < 30000){
                 btn[i] = true;
             }
         }
@@ -207,7 +207,7 @@ public class MissionBoxActivity extends AppCompatActivity {
         }
     }
 
-    public void Exit(View view) {
+    public void Armode(View view) {
         //ar버튼
         //finish();
     }
