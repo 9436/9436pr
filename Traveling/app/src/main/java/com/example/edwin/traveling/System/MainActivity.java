@@ -50,9 +50,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     static int cle_img[] = {R.drawable.cle01,R.drawable.cle02,R.drawable.cle03,R.drawable.cle04,R.drawable.cle05};
     static boolean btn[] = {false, false, false, false, false};
 
+    private int filter;
+
     private ImageButton menuButton;
 
-    private MarkerOptions userMarker;
+    private float userX;
+    private float userY;
 
     private ArrayList<TravelPlace> placeList;
     private ArrayList<TravelPlace> festivalList;
@@ -74,8 +77,23 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 map.clear();
                 drawUser(latitude, longitude);
-                drawFestivalList(latitude, longitude);
-                drawPlaceList(latitude, longitude);
+
+                switch(filter){
+                    case 0:
+                        drawFestivalList(latitude, longitude);
+                        drawPlaceList(latitude, longitude);
+                        break;
+                    case TravelPlace.FESTIVAL:
+                        drawFestivalList(latitude, longitude);
+                        break;
+                    case TravelPlace.TOUR:
+                    case TravelPlace.CULTURE:
+                    case TravelPlace.REPORTS:
+                    case TravelPlace.FOOD:
+                        drawPlaceList(latitude, longitude, filter);
+                        break;
+                }
+
 
             }
         }
@@ -89,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        filter = 0;
         positionReceiver = new PositionReceiver();
         IntentFilter filter = new IntentFilter("PosData");
         registerReceiver(positionReceiver, filter);
@@ -125,9 +144,28 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         popup.setOnMenuItemClickListener(new IconizedMenu.OnMenuItemClickListener(){
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                map.clear();
+                drawUser(userX, userY);
                 switch(item.getItemId()) {
                     case R.id.fest:
-                        Toast.makeText(getApplicationContext(), "filter", Toast.LENGTH_SHORT).show();
+                        filter = TravelPlace.FESTIVAL;
+                        drawFestivalList(userX, userY);
+                        break;
+                    case R.id.food:
+                        filter = TravelPlace.FOOD;
+                        drawPlaceList(userX, userY, filter);
+                        break;
+                    case R.id.tour:
+                        filter = TravelPlace.TOUR;
+                        drawPlaceList(userX, userY, filter);
+                        break;
+                    case R.id.repo:
+                        filter = TravelPlace.REPORTS;
+                        drawPlaceList(userX, userY, filter);
+                        break;
+                    case R.id.cult:
+                        filter =TravelPlace.CULTURE;
+                        drawPlaceList(userX, userY, filter);
                         break;
                     default:
                         break;
@@ -167,6 +205,46 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return true;
     }
 */
+
+    private void drawPlaceList(float x, float y, int selected){
+        //get festival information from APIGetter
+        APIGetter placeGetter = new APIGetter(APIGetter.ADJ_PLACE);
+        placeGetter.addParam(y);
+        placeGetter.addParam(x);
+
+        try {
+            placeGetter.start();
+            placeGetter.join();
+        } catch(InterruptedException e){
+            e.printStackTrace();
+        }
+
+        placeList = (ArrayList<TravelPlace>)placeGetter.getResult();
+
+        for(int i=0;i<placeList.size();i++){
+            TravelPlace cursor = placeList.get(i);
+            if(cursor.getType() != selected){
+                continue;
+            }
+
+            LatLng point = new LatLng(cursor.getY(), cursor.getX());
+            switch(cursor.getType()){
+                case TravelPlace.CULTURE:
+                    drawMarker(map, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_culture);
+                    break;
+                case TravelPlace.FOOD:
+                    drawMarker(map, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_food);
+                    break;
+                case TravelPlace.REPORTS:
+                    drawMarker(map, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_lesure);
+                    break;
+                case TravelPlace.TOUR:
+                    drawMarker(map, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_tour);
+                    break;
+            }
+        }
+    }
+
     private void drawPlaceList(float x, float y){
         //get festival information from APIGetter
         APIGetter placeGetter = new APIGetter(APIGetter.ADJ_PLACE);
@@ -227,6 +305,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void drawUser(float x, float y){
         LatLng start = new LatLng(x, y);
+
+        userX = x;
+        userY = y;
 
         drawMarker(map, start, "나", "현재위치입니다", R.drawable.icon_player);
         map.moveCamera(CameraUpdateFactory.newLatLng(start));
