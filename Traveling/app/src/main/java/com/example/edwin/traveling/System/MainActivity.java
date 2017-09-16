@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent receiverIntent = new Intent(MainActivity.this, LocationReceiver.class);
