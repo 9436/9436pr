@@ -10,25 +10,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
-import android.location.Location;
-import android.media.Image;
-import android.os.SystemClock;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.example.edwin.traveling.R;
 import com.example.edwin.traveling.System.System.APIGetter;
@@ -103,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Intent receiverIntent = new Intent(MainActivity.this, LocationReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, receiverIntent, 0);
 
-        final long period = 1000 * 5;
+        final long period = 1000;
         long time = SystemClock.currentThreadTimeMillis();
 
         alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, time+period, period, pendingIntent);
@@ -111,6 +102,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void missionOnClick(View v){
         Intent Mission = new Intent(getApplicationContext(), MissionBoxActivity.class);
+        Mission.putExtra("placeList",placeList);
+        Mission.putExtra("festivalList",festivalList);
         startActivity(Mission);
     }
 
@@ -122,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         menuButton.setImageDrawable(getResources().getDrawable(R.drawable.menu_minus));
 
         inflater.inflate(R.menu.action_menu, menu);
+
         popup.setOnMenuItemClickListener(new IconizedMenu.OnMenuItemClickListener(){
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -135,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     return false;
             }
         });
+
         popup.setOnDismissListener(new IconizedMenu.OnDismissListener() {
             @Override
             public void onDismiss(IconizedMenu menu) {
@@ -159,6 +154,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 break;
             case R.id.questButton:
                 Intent Mission = new Intent(getApplicationContext(), MissionBoxActivity.class);
+                Mission.putExtra("placeList",placeList);
+                Mission.putExtra("festivalList",festivalList);
                 startActivity(Mission);
                 break;
             default:

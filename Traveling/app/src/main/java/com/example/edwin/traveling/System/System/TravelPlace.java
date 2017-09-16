@@ -1,10 +1,12 @@
 package com.example.edwin.traveling.System.System;
 
+import java.io.Serializable;
+
 /**
  * Created by Edwin on 2017-09-16.
  */
 
-public class TravelPlace {
+public class TravelPlace implements Serializable {
     private int type;
 
     //Constant for type

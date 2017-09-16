@@ -31,11 +31,6 @@ public class LocationService extends Service {
                 presentLocation.setLatitude(location.getLatitude());
                 presentLocation.setLongitude(location.getLongitude());
 
-                Intent intent = new Intent("PosData");
-                intent.putExtra("LA", (float) location.getLatitude());
-                intent.putExtra("LO", (float) location.getLongitude());
-                getApplicationContext().sendBroadcast(intent);
-
             }
         }
 
@@ -90,6 +85,13 @@ public class LocationService extends Service {
         } catch(SecurityException ex){
             ex.printStackTrace();
         }
+
+        Log.d("TRIPLAY", ""+locListener.getLocation().getLatitude()+","+locListener.getLocation().getLongitude());
+
+        Intent posIntent = new Intent("PosData");
+        posIntent.putExtra("LA", (float) locListener.getLocation().getLatitude());
+        posIntent.putExtra("LO", (float) locListener.getLocation().getLongitude());
+        getApplicationContext().sendBroadcast(posIntent);
 
         return super.onStartCommand(intent, flags, startId);
     }

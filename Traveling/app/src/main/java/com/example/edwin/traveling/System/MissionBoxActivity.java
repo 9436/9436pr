@@ -4,9 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -14,12 +16,19 @@ import android.widget.ImageView;
 import com.example.edwin.traveling.R;
 import com.example.edwin.traveling.System.System.TravelPlace;
 
+import java.util.ArrayList;
+
 import static com.example.edwin.traveling.System.MainActivity.btn;
 import static com.example.edwin.traveling.System.MainActivity.cle_img;
 import static com.example.edwin.traveling.System.MainActivity.mission_img;
 
 public class MissionBoxActivity extends AppCompatActivity {
     static int btnimg[] = {R.drawable.m01,R.drawable.m02,R.drawable.m03,R.drawable.m04,R.drawable.m05};
+
+    private ArrayList<TravelPlace> placeList;
+    private ArrayList<TravelPlace> festivalList;
+
+    Location locationA,locationB;
 
     private class PositionReceiver extends BroadcastReceiver {
         public float latitude;
@@ -32,10 +41,29 @@ public class MissionBoxActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent){
+            Log.d("TRIPLAY", "Position Receive");
+            locationA = new Location("pointA");
+            locationB = new Location("pointB");
+
             if(intent.getAction().equals("PosData")){
-                latitude = intent.getFloatArrayExtra("LA")[0];
-                longitude = intent.getFloatArrayExtra("LO")[0];
+                latitude = intent.getFloatExtra("LA", 0f);
+                longitude = intent.getFloatExtra("LO", 0f);
+                Log.d("distance", "Position Receive:"+latitude+","+longitude);
+                // 내 좌표.
+                locationA.setLatitude(latitude);
+                locationA.setLatitude(longitude);
             }
+
+            float distance;
+            TravelPlace cursor = placeList.get(0);
+
+            locationB.setLatitude(cursor.getX());
+            locationB.setLongitude(cursor.getY());
+
+            Log.d("distance","location: " + cursor.getY() + "," +  cursor.getX());
+            distance = locationA.distanceTo(locationB);
+            Log.d("distance",""+(float)distance);
+
         }
     }
 
@@ -59,16 +87,21 @@ public class MissionBoxActivity extends AppCompatActivity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
         getWindow().setLayout((int) (width * .8), (int) (height * .6));
-	//  getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         mission = (ImageView)findViewById(R.id.missionimg);
         Mission mission[] = new Mission[5];
+
+        Intent it = getIntent();
+        placeList = (ArrayList<TravelPlace>) it.getSerializableExtra("placeList");
+        festivalList = (ArrayList<TravelPlace>) it.getSerializableExtra("festivalList");
+
 
         ImageView misbtn01 = (ImageView)findViewById(R.id.imageView2);
         ImageView misbtn02 = (ImageView)findViewById(R.id.imageView3);
         ImageView misbtn03 = (ImageView)findViewById(R.id.imageView4);
         ImageView misbtn04 = (ImageView)findViewById(R.id.imageView5);
         ImageView misbtn05 = (ImageView)findViewById(R.id.imageView6);
+
 
         if (btn[0]) {
             misbtn01.setImageResource(btnimg[0]);
@@ -141,9 +174,10 @@ public class MissionBoxActivity extends AppCompatActivity {
         public int getNum(){
             return Num;
         }
-
 /*
         public TravelPlace getPlace(){
+
+
 
         }
 */
@@ -158,7 +192,8 @@ public class MissionBoxActivity extends AppCompatActivity {
     }
 
     public void Exit(View view) {
-        finish();
+        //ar버튼
+        //finish();
     }
 
 }
