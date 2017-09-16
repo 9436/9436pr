@@ -32,8 +32,8 @@ public class LocationService extends Service {
                 presentLocation.setLongitude(location.getLongitude());
 
                 Intent intent = new Intent("PosData");
-                intent.putExtra("LA", location.getLatitude());
-                intent.putExtra("LO", location.getLongitude());
+                intent.putExtra("LA", (float) location.getLatitude());
+                intent.putExtra("LO", (float) location.getLongitude());
                 getApplicationContext().sendBroadcast(intent);
 
             }

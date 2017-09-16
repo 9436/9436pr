@@ -41,6 +41,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     static int cle_img[] = {R.drawable.cle01,R.drawable.cle02,R.drawable.cle03,R.drawable.cle04,R.drawable.cle05};
     static boolean btn[] = {false, false, false, false, false};
 
+    private MarkerOptions userMarker;
+
+    private ArrayList<TravelPlace> placeList;
+    private ArrayList<TravelPlace> festivalList;
+
     private class PositionReceiver extends BroadcastReceiver {
         public float latitude;
         public float longitude;
@@ -53,13 +58,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         @Override
         public void onReceive(Context context, Intent intent){
             if(intent.getAction().equals("PosData")){
-                latitude = intent.getFloatArrayExtra("LA")[0];
-                longitude = intent.getFloatArrayExtra("LO")[0];
+                latitude = intent.getFloatExtra("LA", 0f);
+                longitude = intent.getFloatExtra("LO", 0f);
+
+                map.clear();
+                drawUser(latitude, longitude);
+                drawFestivalList(latitude, longitude);
+                drawPlaceList(latitude, longitude);
             }
         }
     }
 
     PositionReceiver positionReceiver;
+    GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,68 +122,87 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return true;
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        final float START_X=(float) 37.206833;
-        final float START_Y=(float) 126.990899;
-        LatLng start = new LatLng(START_X, START_Y);
-
-        drawMarker(googleMap, start, "시작점", "현재위치입니다", R.drawable.icon_player);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(start));
-        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-
+    private void drawPlaceList(float x, float y){
         //get festival information from APIGetter
         APIGetter placeGetter = new APIGetter(APIGetter.ADJ_PLACE);
-        APIGetter festGetter = new APIGetter(APIGetter.ADJ_FESTIVAL);
-        placeGetter.addParam(START_Y);
-        placeGetter.addParam(START_X);
-        festGetter.addParam(START_Y);
-        festGetter.addParam(START_X);
+        placeGetter.addParam(y);
+        placeGetter.addParam(x);
 
         try {
             placeGetter.start();
-            festGetter.start();
             placeGetter.join();
-            festGetter.join();
         } catch(InterruptedException e){
             e.printStackTrace();
         }
 
-        ArrayList<TravelPlace> placeList = (ArrayList<TravelPlace>)placeGetter.getResult();
-        ArrayList<TravelPlace> festivalList = (ArrayList<TravelPlace>)festGetter.getResult();
-        Log.d("TRIPLAY", "SIZE="+festivalList.size());
-        for(int i=0;i<festivalList.size();i++){
-            TravelPlace cursor = festivalList.get(i);
-            LatLng point = new LatLng(cursor.getY(), cursor.getX());
-            drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_festival);
-        }
+        placeList = (ArrayList<TravelPlace>)placeGetter.getResult();
 
         for(int i=0;i<placeList.size();i++){
             TravelPlace cursor = placeList.get(i);
             LatLng point = new LatLng(cursor.getY(), cursor.getX());
             switch(cursor.getType()){
                 case TravelPlace.CULTURE:
-                    drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_culture);
+                    drawMarker(map, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_culture);
                     break;
                 case TravelPlace.FOOD:
-                    drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_food);
+                    drawMarker(map, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_food);
                     break;
                 case TravelPlace.REPORTS:
-                    drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_lesure);
+                    drawMarker(map, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_lesure);
                     break;
                 case TravelPlace.TOUR:
-                    drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_tour);
+                    drawMarker(map, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_tour);
                     break;
             }
 
         }
+    }
+
+    private void drawFestivalList(float x, float y){
+        APIGetter festGetter = new APIGetter(APIGetter.ADJ_FESTIVAL);
+
+        festGetter.addParam(y);
+        festGetter.addParam(x);
+
+        try {
+            festGetter.start();
+            festGetter.join();
+        } catch(InterruptedException e){
+            e.printStackTrace();
+        }
+
+        festivalList = (ArrayList<TravelPlace>)festGetter.getResult();
+        Log.d("TRIPLAY", "SIZE="+festivalList.size());
+        for(int i=0;i<festivalList.size();i++){
+            TravelPlace cursor = festivalList.get(i);
+            LatLng point = new LatLng(cursor.getY(), cursor.getX());
+            drawMarker(map, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_festival);
+        }
+    }
+
+    private void drawUser(float x, float y){
+        LatLng start = new LatLng(x, y);
+
+        drawMarker(map, start, "나", "현재위치입니다", R.drawable.icon_player);
+        map.moveCamera(CameraUpdateFactory.newLatLng(start));
+        map.animateCamera(CameraUpdateFactory.zoomTo(15));
+
+    }
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        final float START_X=(float) 37.206833;
+        final float START_Y=(float) 126.990899;
+
+        map = googleMap;
+        drawUser(START_X, START_Y);
+        drawFestivalList(START_X, START_Y);
+        drawPlaceList(START_X, START_Y);
 
     }
 
     private void drawMarker(GoogleMap map, LatLng point, String title, String snippet, int icon){
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(point);
-
 
         BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), icon));
         markerOptions.icon(markerIcon);
