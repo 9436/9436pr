@@ -1,6 +1,7 @@
 package com.example.edwin.traveling.System;
 
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -14,6 +15,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         @Override
         public void onReceive(Context context, Intent intent){
             if(intent.getAction().equals("userData")){
+                Log.d("TRIPLAY", "Receive Position");
                 latitude = intent.getFloatExtra("LA", 0f);
                 longitude = intent.getFloatExtra("LO", 0f);
                 Location newPos = new Location("NP");
@@ -82,6 +85,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Log.d("TRIPLAY", "CHANGE ENVIRONMENT");
                     setFestivalInfo(latitude, longitude);
                     setPlaceInfo(latitude, longitude);
+                }
+
+                if(festivalCheck(newPos) > 0){
+                    PendingIntent pintent = PendingIntent.getActivity(MainActivity.this, 0, new Intent(getApplicationContext(), MainActivity.class),
+                            PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(MainActivity.this)
+                            .setSmallIcon(R.mipmap.icon_launcher)
+                            .setContentTitle("근처에 축제가 있습니다.")
+                            .setContentText("한 번 들려보시는 건 어떨까요?")
+                            .setContentIntent(pintent);
+
+                    NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    nm.notify(0, mBuilder.build());
                 }
 
                 map.clear();
@@ -108,6 +125,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     PositionReceiver positionReceiver;
     GoogleMap map;
+
+    private int festivalCheck(Location pos){
+        Location loc = new Location("target");
+
+        for(int i=0;i<festivalList.size();i++){
+            loc.setLatitude( festivalList.get(i).getY() );
+            loc.setLongitude( festivalList.get(i).getX() );
+
+            if( pos.distanceTo(loc) < 50f){
+                return i;
+            }
+        }
+
+        return -1;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

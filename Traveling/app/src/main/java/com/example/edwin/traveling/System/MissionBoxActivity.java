@@ -49,7 +49,7 @@ public class MissionBoxActivity extends AppCompatActivity {
                 Log.d("distance", "Position Receive:"+latitude+","+longitude);
                 // 내 좌표.
                 locationA.setLatitude((double)latitude);
-                locationA.setLatitude((double)longitude);
+                locationA.setLongitude((double)longitude);
             }
         }
     }
@@ -137,6 +137,12 @@ public class MissionBoxActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(positionReceiver);
+        super.onDestroy();
+    }
+
     public void misbtn01(View view) {
         sel_num = 0;
         if(btn[sel_num]){
@@ -207,7 +213,7 @@ public class MissionBoxActivity extends AppCompatActivity {
         }
     }
 
-    public void Exit(View view) {
+    public void Armode(View view) {
         //ar버튼
         //finish();
     }
