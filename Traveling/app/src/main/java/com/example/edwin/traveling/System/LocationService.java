@@ -30,13 +30,13 @@ public class LocationService extends Service {
             if (location != null) {
                 presentLocation.setLatitude(location.getLatitude());
                 presentLocation.setLongitude(location.getLongitude());
-            }
 
-            Log.d("TRIPLAY", "userPosition:"+location.getLatitude()+","+location.getLongitude());
-            Intent userIntent = new Intent("userData");
-            userIntent.putExtra("LA", (float) location.getLatitude());
-            userIntent.putExtra("LO", (float) location.getLongitude());
-            getApplicationContext().sendBroadcast(userIntent);
+                Log.d("TRIPLAY", "userPosition:"+location.getLatitude()+","+location.getLongitude());
+                Intent userIntent = new Intent("userData");
+                userIntent.putExtra("LA", (float) location.getLatitude());
+                userIntent.putExtra("LO", (float) location.getLongitude());
+                getApplicationContext().sendBroadcast(userIntent);
+            }
         }
 
         @Override
@@ -78,34 +78,19 @@ public class LocationService extends Service {
         try {
             if( lm.isProviderEnabled(LocationManager.GPS_PROVIDER) ){
                 Log.d("TRIPLAY", "GPS");
-                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 100f, locListener);
+                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locListener);
             }
             else if(lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ){
                 Log.d("TRIPLAY", "NETWORK");
-                lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 100f, locListener);
+                lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locListener);
             } else {
                 Log.d("TRIPLAY", "UNABLE PROVIDER");
             }
-
-            Intent posIntent = new Intent("PosData");
-            Log.d("TRIPLAY", ""+locListener.getLocation().getLatitude()+","+locListener.getLocation().getLongitude());
-            posIntent.putExtra("LA", (float) locListener.getLocation().getLatitude());
-            posIntent.putExtra("LO", (float) locListener.getLocation().getLongitude());
-            getApplicationContext().sendBroadcast(posIntent);
-
         } catch(SecurityException ex){
             ex.printStackTrace();
         } catch(IllegalArgumentException ex){
             ex.printStackTrace();
         }
-
-        Log.d("TRIPLAY", "enviPosition:"+locListener.getLocation().getLatitude()+","+locListener.getLocation().getLongitude());
-
-        Intent posIntent = new Intent("PosData");
-        posIntent.putExtra("LA", (float) locListener.getLocation().getLatitude());
-        posIntent.putExtra("LO", (float) locListener.getLocation().getLongitude());
-        getApplicationContext().sendBroadcast(posIntent);
-
         return super.onStartCommand(intent, flags, startId);
     }
 

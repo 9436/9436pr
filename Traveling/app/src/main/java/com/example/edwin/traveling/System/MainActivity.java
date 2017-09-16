@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
@@ -63,35 +64,44 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         @Override
         public void onReceive(Context context, Intent intent){
-            if(intent.getAction().equals("PosData")){
+            if(intent.getAction().equals("userData")){
                 latitude = intent.getFloatExtra("LA", 0f);
                 longitude = intent.getFloatExtra("LO", 0f);
+                Location newPos = new Location("NP");
+
+                newPos.setLatitude( (double) latitude);
+                newPos.setLongitude( (double) longitude);
+
+                Location prePos = new Location("PP");
+
+                prePos.setLatitude( (double) userX);
+                prePos.setLongitude( (double) userY);
+
+                if(newPos.distanceTo(prePos) > 150f) {
+                    Log.d("TRIPLAY", "CHANGE ENVIRONMENT");
+                    setFestivalInfo(latitude, longitude);
+                    setPlaceInfo(latitude, longitude);
+                }
 
                 map.clear();
                 drawUser(latitude, longitude);
-
                 switch(filter){
                     case 0:
-                        drawFestivalList(latitude, longitude);
-                        drawPlaceList(latitude, longitude);
+                        drawFestivalList();
+                        drawPlaceList();
                         break;
                     case TravelPlace.FESTIVAL:
-                        drawFestivalList(latitude, longitude);
+                        drawFestivalList();
                         break;
                     case TravelPlace.TOUR:
                     case TravelPlace.CULTURE:
                     case TravelPlace.REPORTS:
                     case TravelPlace.FOOD:
-                        drawPlaceList(latitude, longitude, filter);
+                        drawPlaceList(filter);
                         break;
                 }
             }
-            else if(intent.getAction().equals("userData")){
-                latitude = intent.getFloatExtra("LA", 0f);
-                longitude = intent.getFloatExtra("LO", 0f);
 
-                drawUser(latitude, longitude);
-            }
         }
     }
 
@@ -105,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         filter = 0;
         positionReceiver = new PositionReceiver();
-        IntentFilter filter = new IntentFilter("PosData");
+        IntentFilter filter = new IntentFilter("userData");
         registerReceiver(positionReceiver, filter);
 
         menuButton = (ImageButton) findViewById(R.id.menubutton);
@@ -148,28 +158,28 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 switch(item.getItemId()) {
                     case R.id.fest:
                         filter = TravelPlace.FESTIVAL;
-                        drawFestivalList(userX, userY);
+                        drawFestivalList();
                         break;
                     case R.id.food:
                         filter = TravelPlace.FOOD;
-                        drawPlaceList(userX, userY, filter);
+                        drawPlaceList(filter);
                         break;
                     case R.id.tour:
                         filter = TravelPlace.TOUR;
-                        drawPlaceList(userX, userY, filter);
+                        drawPlaceList(filter);
                         break;
                     case R.id.repo:
                         filter = TravelPlace.REPORTS;
-                        drawPlaceList(userX, userY, filter);
+                        drawPlaceList(filter);
                         break;
                     case R.id.cult:
                         filter =TravelPlace.CULTURE;
-                        drawPlaceList(userX, userY, filter);
+                        drawPlaceList(filter);
                         break;
                     default:
                         break;
                 }
-                    return false;
+                return false;
             }
         });
 
@@ -182,34 +192,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         popup.show();
 
     }
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.action_menu, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch(item.getItemId()){
-            case R.id.fest:
-                Toast.makeText(this, "filter", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.questButton:
-                Intent Mission = new Intent(getApplicationContext(), MissionBoxActivity.class);
-                Mission.putExtra("placeList",placeList);
-                Mission.putExtra("festivalList",festivalList);
-                startActivity(Mission);
-                break;
-            default:
-                break;
-        }
-        return true;
-    }
-*/
-
-    private void drawPlaceList(float x, float y, int selected){
-        //get festival information from APIGetter
+    private void setPlaceInfo(float x, float y){
         APIGetter placeGetter = new APIGetter(APIGetter.ADJ_PLACE);
         placeGetter.addParam(y);
         placeGetter.addParam(x);
@@ -222,7 +206,26 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         placeList = (ArrayList<TravelPlace>)placeGetter.getResult();
+    }
 
+    private void setFestivalInfo(float x, float y){
+        APIGetter festGetter = new APIGetter(APIGetter.ADJ_FESTIVAL);
+
+        festGetter.addParam(y);
+        festGetter.addParam(x);
+
+        try {
+            festGetter.start();
+            festGetter.join();
+        } catch(InterruptedException e){
+            e.printStackTrace();
+        }
+
+        festivalList = (ArrayList<TravelPlace>)festGetter.getResult();
+    }
+
+    private void drawPlaceList(int selected){
+        //get festival information from APIGetter
         for(int i=0;i<placeList.size();i++){
             TravelPlace cursor = placeList.get(i);
             if(cursor.getType() != selected){
@@ -247,21 +250,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    private void drawPlaceList(float x, float y){
-        //get festival information from APIGetter
-        APIGetter placeGetter = new APIGetter(APIGetter.ADJ_PLACE);
-        placeGetter.addParam(y);
-        placeGetter.addParam(x);
-
-        try {
-            placeGetter.start();
-            placeGetter.join();
-        } catch(InterruptedException e){
-            e.printStackTrace();
-        }
-
-        placeList = (ArrayList<TravelPlace>)placeGetter.getResult();
-
+    private void drawPlaceList(){
         for(int i=0;i<placeList.size();i++){
             TravelPlace cursor = placeList.get(i);
             LatLng point = new LatLng(cursor.getY(), cursor.getX());
@@ -283,21 +272,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    private void drawFestivalList(float x, float y){
-        APIGetter festGetter = new APIGetter(APIGetter.ADJ_FESTIVAL);
-
-        festGetter.addParam(y);
-        festGetter.addParam(x);
-
-        try {
-            festGetter.start();
-            festGetter.join();
-        } catch(InterruptedException e){
-            e.printStackTrace();
-        }
-
-        festivalList = (ArrayList<TravelPlace>)festGetter.getResult();
-        Log.d("TRIPLAY", "SIZE="+festivalList.size());
+    private void drawFestivalList(){
         for(int i=0;i<festivalList.size();i++){
             TravelPlace cursor = festivalList.get(i);
             LatLng point = new LatLng(cursor.getY(), cursor.getX());
@@ -311,16 +286,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         userX = x;
         userY = y;
 
-        if(userMarker == null){
-            userMarker = new MarkerOptions();
-            BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.icon_player));
-            userMarker.icon(markerIcon);
-            userMarker.title("나");
-            userMarker.snippet("현재위치입니다.");
-            map.addMarker(userMarker);
-        }
-
+        userMarker = new MarkerOptions();
+        BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.icon_player));
+        userMarker.icon(markerIcon);
+        userMarker.title("나");
+        userMarker.snippet("현재위치입니다.");
         userMarker.position(start);
+
+        map.addMarker(userMarker);
         map.moveCamera(CameraUpdateFactory.newLatLng(start));
         map.animateCamera(CameraUpdateFactory.zoomTo(15));
 
@@ -332,8 +305,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         map = googleMap;
         drawUser(START_X, START_Y);
-        drawFestivalList(START_X, START_Y);
-        drawPlaceList(START_X, START_Y);
+        setFestivalInfo(START_X, START_Y);
+        setPlaceInfo(START_X, START_Y);
+
+        drawFestivalList();
+        drawPlaceList();
 
     }
 

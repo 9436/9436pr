@@ -78,7 +78,7 @@ public class MissionBoxActivity extends AppCompatActivity {
         setContentView(R.layout.missionboxactivity);
 
         positionReceiver = new PositionReceiver();
-        IntentFilter filter = new IntentFilter("PosData");
+        IntentFilter filter = new IntentFilter("userData");
         registerReceiver(positionReceiver, filter);
 
         DisplayMetrics dm = new DisplayMetrics();
