@@ -9,6 +9,7 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.example.edwin.traveling.R;
+import com.example.edwin.traveling.System.System.TravelPlace;
 
 import java.util.Random;
 
@@ -30,8 +31,8 @@ public class MissionBoxActivity extends AppCompatActivity {
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        getWindow().setLayout((int) (width * .8), (int) (height * .4));
-	getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        getWindow().setLayout((int) (width * .8), (int) (height * .55));
+	//    getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         mission = (ImageView)findViewById(R.id.missionimg);
 
@@ -42,11 +43,31 @@ public class MissionBoxActivity extends AppCompatActivity {
     }
 
 
+    public class Mission {
+        private boolean Clear;
+        private String Name;
+        private TravelPlace Place;
+
+        public boolean isClear() {
+            return Clear;
+        }
+
+        public String getName() {
+            return Name;
+        }
+/*
+        public TravelPlace getPlace(){
+
+        }
+*/
+    }
+
+
     public void clear(View view) {
         mission_img[rd_num] = cle_img[rd_num];
         mission.setImageResource(mission_img[rd_num]);
     }
-
+    /*
     public void NextImg(View view) {
         rd_num++;
         if(rd_num == mission_img.length){
@@ -54,8 +75,9 @@ public class MissionBoxActivity extends AppCompatActivity {
         }
         mission.setImageResource(mission_img[rd_num]);
     }
-
+    */
     public void Exit(View view) {
         finish();
     }
+
 }
