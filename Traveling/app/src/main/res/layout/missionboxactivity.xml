@@ -21,43 +21,48 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/m01"
+            app:srcCompat="@drawable/darkm01"
             android:id="@+id/imageView2"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="misbtn01"/>
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/m02"
+            app:srcCompat="@drawable/darkm02"
             android:id="@+id/imageView3"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="misbtn02"/>
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/m03"
+            app:srcCompat="@drawable/darkm03"
             android:id="@+id/imageView4"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="misbtn03"/>
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/m04"
+            app:srcCompat="@drawable/darkm04"
             android:id="@+id/imageView5"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="misbtn04"/>
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/m05"
+            app:srcCompat="@drawable/darkm05"
             android:id="@+id/imageView6"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="misbtn05"/>
     </LinearLayout>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="205dp"
-        app:srcCompat="@drawable/mis01"
+        app:srcCompat="@drawable/missionbaseimg"
         android:id="@+id/missionimg" />
 
     <LinearLayout
