@@ -42,28 +42,15 @@ public class MissionBoxActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent){
             Log.d("TRIPLAY", "Position Receive");
-            locationA = new Location("pointA");
-            locationB = new Location("pointB");
 
             if(intent.getAction().equals("userData")){
                 latitude = intent.getFloatExtra("LA", 0f);
                 longitude = intent.getFloatExtra("LO", 0f);
                 Log.d("distance", "Position Receive:"+latitude+","+longitude);
                 // 내 좌표.
-                locationA.setLatitude(latitude);
-                locationA.setLatitude(longitude);
+                locationA.setLatitude((double)latitude);
+                locationA.setLatitude((double)longitude);
             }
-
-            float distance;
-            TravelPlace cursor = placeList.get(0);
-
-            locationB.setLatitude(cursor.getX());
-            locationB.setLongitude(cursor.getY());
-
-            Log.d("distance","location: " + cursor.getY() + "," +  cursor.getX());
-            distance = locationA.distanceTo(locationB);
-            Log.d("distance",""+(float)distance);
-
         }
     }
 
@@ -76,6 +63,9 @@ public class MissionBoxActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.missionboxactivity);
+
+        locationA = new Location("pointA");
+        locationB = new Location("pointB");
 
         positionReceiver = new PositionReceiver();
         IntentFilter filter = new IntentFilter("userData");
@@ -95,6 +85,32 @@ public class MissionBoxActivity extends AppCompatActivity {
         placeList = (ArrayList<TravelPlace>) it.getSerializableExtra("placeList");
         festivalList = (ArrayList<TravelPlace>) it.getSerializableExtra("festivalList");
 
+        float distance[] = new float[5];
+        TravelPlace place[] = new TravelPlace[5];
+
+        for(int i = 0 ; i < placeList.size() ; i++){
+            place[i] = placeList.get(i);
+            locationB.setLatitude((double)place[i].getX());
+            locationB.setLongitude((double)place[i].getY());
+            Log.d("distance","location: " + place[i].getY() + ", " + place[i].getX());
+            distance[i] = locationA.distanceTo(locationB);
+            Log.d("distance", i + ", " + distance[i]);
+        }
+        Log.d("distance", placeList.size() + " " + festivalList.size());
+        for(int i = placeList.size(); i < placeList.size() + festivalList.size() ; i++){
+            place[i] = festivalList.get(i);
+            locationB.setLatitude((double)place[i].getX());
+            locationB.setLongitude((double)place[i].getY());
+            Log.d("distance","location: " + place[i].getY() + ", " + place[i].getX());
+            distance[i] = locationA.distanceTo(locationB);
+            Log.d("distance", i + ", " + distance[i]);
+        }
+
+        for(int i = 0 ; i < placeList.size() + festivalList.size() ; i++){
+            if(distance[i] < 13201920f){
+                btn[i] = true;
+            }
+        }
 
         ImageView misbtn01 = (ImageView)findViewById(R.id.imageView2);
         ImageView misbtn02 = (ImageView)findViewById(R.id.imageView3);
