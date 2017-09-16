@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private ImageButton menuButton;
 
+    private MarkerOptions userMarker;
     private float userX;
     private float userY;
 
@@ -84,8 +85,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         drawPlaceList(latitude, longitude, filter);
                         break;
                 }
+            }
+            else if(intent.getAction().equals("userData")){
+                latitude = intent.getFloatExtra("LA", 0f);
+                longitude = intent.getFloatExtra("LO", 0f);
 
-
+                drawUser(latitude, longitude);
             }
         }
     }
@@ -306,7 +311,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         userX = x;
         userY = y;
 
-        drawMarker(map, start, "나", "현재위치입니다", R.drawable.icon_player);
+        if(userMarker == null){
+            userMarker = new MarkerOptions();
+            BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.icon_player));
+            userMarker.icon(markerIcon);
+            userMarker.title("나");
+            userMarker.snippet("현재위치입니다.");
+            map.addMarker(userMarker);
+        }
+
+        userMarker.position(start);
         map.moveCamera(CameraUpdateFactory.newLatLng(start));
         map.animateCamera(CameraUpdateFactory.zoomTo(15));
 

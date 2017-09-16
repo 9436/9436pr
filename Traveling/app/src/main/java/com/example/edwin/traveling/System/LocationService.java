@@ -30,8 +30,13 @@ public class LocationService extends Service {
             if (location != null) {
                 presentLocation.setLatitude(location.getLatitude());
                 presentLocation.setLongitude(location.getLongitude());
-
             }
+
+            Log.d("TRIPLAY", "userPosition:"+location.getLatitude()+","+location.getLongitude());
+            Intent userIntent = new Intent("userData");
+            userIntent.putExtra("LA", (float) location.getLatitude());
+            userIntent.putExtra("LO", (float) location.getLongitude());
+            getApplicationContext().sendBroadcast(userIntent);
         }
 
         @Override
@@ -94,7 +99,7 @@ public class LocationService extends Service {
             ex.printStackTrace();
         }
 
-        Log.d("TRIPLAY", ""+locListener.getLocation().getLatitude()+","+locListener.getLocation().getLongitude());
+        Log.d("TRIPLAY", "enviPosition:"+locListener.getLocation().getLatitude()+","+locListener.getLocation().getLongitude());
 
         Intent posIntent = new Intent("PosData");
         posIntent.putExtra("LA", (float) locListener.getLocation().getLatitude());

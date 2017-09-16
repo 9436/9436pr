@@ -45,7 +45,7 @@ public class MissionBoxActivity extends AppCompatActivity {
             locationA = new Location("pointA");
             locationB = new Location("pointB");
 
-            if(intent.getAction().equals("PosData")){
+            if(intent.getAction().equals("userData")){
                 latitude = intent.getFloatExtra("LA", 0f);
                 longitude = intent.getFloatExtra("LO", 0f);
                 Log.d("distance", "Position Receive:"+latitude+","+longitude);
