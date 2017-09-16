@@ -30,7 +30,7 @@ public class MissionBoxActivity extends AppCompatActivity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
         getWindow().setLayout((int) (width * .8), (int) (height * .4));
-
+	getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         mission = (ImageView)findViewById(R.id.missionimg);
 
