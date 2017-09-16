@@ -27,13 +27,14 @@
             android:value="AIzaSyAIp_H_ClT6Iz0yWFbaFVPX384jQQkbS-E"
             />
 
-        <activity android:name=".System.MainActivity">
+        <activity android:name=".System.System.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".System.MainActivity">
+        </activity>>
         <activity android:name=".System.MissionBoxActivity"
             android:theme="@style/AppTheme.CustomTheme"/>
 
