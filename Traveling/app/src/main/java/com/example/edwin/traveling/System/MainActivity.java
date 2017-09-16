@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private MarkerOptions userMarker;
     private float userX;
     private float userY;
+    private int zoom;
 
     private ArrayList<TravelPlace> placeList;
     private ArrayList<TravelPlace> festivalList;
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        zoom = 15;
         filter = 0;
         positionReceiver = new PositionReceiver();
         IntentFilter filter = new IntentFilter("userData");
@@ -141,6 +143,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         startActivity(Mission);
     }
 
+    public void zoomIn(View v){
+        if(zoom <= 20){
+            zoom += 1;
+            map.animateCamera(CameraUpdateFactory.zoomTo(zoom));
+        }
+    }
+
+    public void zoomOut(View v){
+        if(zoom > 10){
+            zoom -= 1;
+            map.animateCamera(CameraUpdateFactory.zoomTo(zoom));
+        }
+    }
+
     public void menuOnClick(View v){
         IconizedMenu popup = new IconizedMenu(this, v);
         MenuInflater inflater = popup.getMenuInflater();
@@ -156,6 +172,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 map.clear();
                 drawUser(userX, userY);
                 switch(item.getItemId()) {
+                    case R.id.cancel:
+                        filter = 0;
+                        drawFestivalList();
+                        drawPlaceList();
+                        break;
                     case R.id.fest:
                         filter = TravelPlace.FESTIVAL;
                         drawFestivalList();
@@ -295,7 +316,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         map.addMarker(userMarker);
         map.moveCamera(CameraUpdateFactory.newLatLng(start));
-        map.animateCamera(CameraUpdateFactory.zoomTo(15));
+        map.animateCamera(CameraUpdateFactory.zoomTo(zoom));
 
     }
     @Override

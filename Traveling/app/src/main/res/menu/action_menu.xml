@@ -22,5 +22,8 @@
             android:title="음식점"
             android:icon="@drawable/menu_food"/>
 
+        <item android:id="@+id/cancel"
+                android:title="필터 취소"
+                android:icon="@drawable/menu_cancel"/>
 
 </menu>
