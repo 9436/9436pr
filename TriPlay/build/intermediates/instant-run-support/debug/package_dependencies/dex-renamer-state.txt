@@ -1,0 +1,10 @@
+#Sat Sep 16 15:20:00 KST 2017
+renamed.2=classes.dex
+renamed.1=classes3.dex
+renamed.0=classes2.dex
+base.2=C\:\\Users\\vskyl\\AndroidStudioProjects\\9436pr\\TriPlay\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\unity-classes_2c52d32292cfa4e3916c5dacbdc03f1529e4fee3
+base.1=C\:\\Users\\vskyl\\AndroidStudioProjects\\9436pr\\TriPlay\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\Vuforia_9217f9ea089fff8144547793c9d41e7fd423a5a2
+base.0=C\:\\Users\\vskyl\\AndroidStudioProjects\\9436pr\\TriPlay\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\VuforiaUnityPlayer_85f1a888f960cfe3fa3a4a678b37dba835576a55
+file.2=C\:\\Users\\vskyl\\AndroidStudioProjects\\9436pr\\TriPlay\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\unity-classes_2c52d32292cfa4e3916c5dacbdc03f1529e4fee3\\classes.dex
+file.1=C\:\\Users\\vskyl\\AndroidStudioProjects\\9436pr\\TriPlay\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\Vuforia_9217f9ea089fff8144547793c9d41e7fd423a5a2\\classes.dex
+file.0=C\:\\Users\\vskyl\\AndroidStudioProjects\\9436pr\\TriPlay\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\2\\VuforiaUnityPlayer_85f1a888f960cfe3fa3a4a678b37dba835576a55\\classes.dex

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\vskyl\AndroidStudioProjects\9436pr\TriPlay\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="C:\Users\vskyl\AndroidStudioProjects\9436pr\TriPlay\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_5f31de06efba661d6b874973de62521957595048\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\vskyl\AndroidStudioProjects\9436pr\TriPlay\libs\Vuforia.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="be3db5d282d7094986c342631085ca4d84c02603">
+        <dex dex="C:\Users\vskyl\AndroidStudioProjects\9436pr\TriPlay\build\intermediates\transforms\dex\debug\folders\1000\2\Vuforia_9217f9ea089fff8144547793c9d41e7fd423a5a2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\vskyl\AndroidStudioProjects\9436pr\TriPlay\libs\unity-classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="296b241463e930f8b7d957f5c2acf1ec8c4a16e6">
+        <dex dex="C:\Users\vskyl\AndroidStudioProjects\9436pr\TriPlay\build\intermediates\transforms\dex\debug\folders\1000\2\unity-classes_2c52d32292cfa4e3916c5dacbdc03f1529e4fee3\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\vskyl\AndroidStudioProjects\9436pr\TriPlay\libs\VuforiaUnityPlayer.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="95f5205a17a7546c265d4a27d1e6f8be7b6f3f03">
+        <dex dex="C:\Users\vskyl\AndroidStudioProjects\9436pr\TriPlay\build\intermediates\transforms\dex\debug\folders\1000\2\VuforiaUnityPlayer_85f1a888f960cfe3fa3a4a678b37dba835576a55\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\vskyl\AndroidStudioProjects\9436pr\TriPlay\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d23ae682105910a1554cbca036cac8cd1dd370a6">
+        <dex dex="C:\Users\vskyl\AndroidStudioProjects\9436pr\TriPlay\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_ebb6b296c002b1ab8f6956511b3d3a226af4da3b\classes.dex" />
+    </item>
+
+</items>
