@@ -4,6 +4,8 @@ package com.example.edwin.traveling.System.System;
  * Created by Edwin on 2017-09-15.
  */
 
+import android.util.Log;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 
 public class TourAPIData {
     private final String OS = "AND";
-    private final String APPNAME = "KOCKOCK";
+    private final String APPNAME = "TRIPLAY";
     private Document doc;
 
     private TourAPIData(){
@@ -34,15 +36,18 @@ public class TourAPIData {
 
     public ArrayList<TravelPlace> getAdjacencyPlace(float pos_x, float pos_y){
         final int MAX_NUM = 10;
-        final String RADIUS = "250";
+        final String RADIUS = "1000";
         final String MAX_ROW = "100";
         ArrayList<TravelPlace> result = new ArrayList<TravelPlace>();
 
+        Log.d("TRIPLAY", "mapX="+pos_x+" "+"mapY="+pos_y);
         doc = getXMLData("locationBasedList", 1, "arrange=E", "mapX="+String.valueOf(pos_x), "mapY="+String.valueOf(pos_y), "radius="+RADIUS, "numOfRows="+MAX_ROW);
 
-        Elements eResult = doc.getElementsByTag("items");
+        Elements eResult = doc.getElementsByTag("item");
         int count = 0, cursor = 0;
-        while(count < MAX_NUM){
+        int rowNum = eResult.size();
+        Log.d("TRIPLAY", "Row="+rowNum);
+        while(count < MAX_NUM && cursor < rowNum){
             int type = Integer.parseInt(eResult.get(cursor).getElementsByTag("contenttypeid").get(0).text());
             if(!checkOtherType(type)){
                 cursor++;
@@ -65,15 +70,17 @@ public class TourAPIData {
 
     public ArrayList<TravelPlace> getAdjacencyFestival(float pos_x, float pos_y){
         final int MAX_NUM = 5;
-        final String RADIUS = "250";
-        final String MAX_ROW = "100";
+        final String RADIUS = "1000";
+        final int MAX_ROW = 100;
         ArrayList<TravelPlace> result = new ArrayList<TravelPlace>();
 
-        doc = getXMLData("locationBasedList", 1, "arrange=E", "mapX="+String.valueOf(pos_x), "mapY="+String.valueOf(pos_y), "radius="+RADIUS, "numOfRows="+MAX_ROW);
+        doc = getXMLData("locationBasedList", 1, "arrange=E", "mapX="+String.valueOf(pos_x), "mapY="+String.valueOf(pos_y), "radius="+RADIUS, "numOfRows="+String.valueOf(MAX_ROW));
 
-        Elements eResult = doc.getElementsByTag("items");
+        Elements eResult = doc.getElementsByTag("item");
         int count = 0, cursor = 0;
-        while(count < MAX_NUM){
+        int rowNum = eResult.size();
+        Log.d("TRIPLAY", "ROWNUM="+rowNum);
+        while(count < MAX_NUM && cursor < rowNum){
             int type = Integer.parseInt(eResult.get(cursor).getElementsByTag("contenttypeid").get(0).text());
             if(!checkFestival(type)){
                 cursor++;

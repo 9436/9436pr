@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/questButton"
+        android:title="quest"
+        android:icon="@drawable/quest"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/fest"
+        android:title="축제"
+        android:icon="@drawable/filter"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/tour"
+        android:title="여행지"
+        android:icon="@drawable/filter"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/cult"
+        android:title="문화시설"
+        android:icon="@drawable/filter"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/repo"
+        android:title="레포츠"
+        android:icon="@drawable/filter"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/food"
+        android:title="음식"
+        android:icon="@drawable/filter"
+        app:showAsAction="never"/>
+</menu>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ChosunApp</string>
+    <string name="Number">학번: 20134822</string>
+    <string name="Major">소속: 컴퓨터공학과</string>
+    <string name="Name">이름: 김한섭</string>
+    <string name="Btn1">Chosun University</string>
+    <string name="Btn2">Activity 01</string>
+    <string name="Btn3">Activity 02</string>
+</resources>

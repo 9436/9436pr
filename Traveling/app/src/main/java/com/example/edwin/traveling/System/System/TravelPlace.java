@@ -27,4 +27,41 @@ public class TravelPlace {
         this.pos_Y = pos_y;
     }
 
+    public int getType(){
+        return type;
+    }
+
+    public String getTypeName(){
+        switch(type){
+            case TOUR:
+                return "여행지";
+            case CULTURE:
+                return "문화시설";
+            case FESTIVAL:
+                return "축제";
+            case REPORTS:
+                return "레포츠";
+            case FOOD:
+                return "음식점";
+        }
+
+        return "";
+    }
+
+    public String getID(){
+        return ID;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public float getX(){
+        return pos_X;
+    }
+
+    public float getY(){
+        return pos_Y;
+    }
+
 }
