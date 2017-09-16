@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.edwin.traveling.System.MainActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/main_toolbar"
-        android:minHeight="?attr/actionBarSize"
-        android:layout_width="match_parent"
+    <ImageButton
+        android:layout_margin="20dp"
+        android:id="@+id/menubutton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:background="#00ffffff"
-        android:elevation="2dp">
+        android:src="@drawable/menu_plus"
+        android:elevation="2dp"
+        android:onClick="menuOnClick"/>
 
-    </android.support.v7.widget.Toolbar>
+    <ImageButton
+        android:layout_margin="10dp"
+        android:background="#00ffffff"
+        android:id="@+id/missionbutton"
+        android:elevation="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/missionbutton"
+        android:onClick="missionOnClick"/>
 
     <fragment
         android:id="@+id/map"
@@ -24,4 +36,4 @@
         android:apiKey="AIzaSyAIp_H_ClT6Iz0yWFbaFVPX384jQQkbS-E"
         class="com.google.android.gms.maps.MapFragment"/>
 
-</FrameLayout>
+</RelativeLayout>

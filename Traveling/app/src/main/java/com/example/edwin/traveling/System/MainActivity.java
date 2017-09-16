@@ -10,20 +10,29 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
 import android.location.Location;
+import android.media.Image;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.example.edwin.traveling.R;
 import com.example.edwin.traveling.System.System.APIGetter;
+import com.example.edwin.traveling.System.System.IconizedMenu;
 import com.example.edwin.traveling.System.System.TravelPlace;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -40,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     static int mission_img[] = {R.drawable.mis01,R.drawable.mis02,R.drawable.mis03,R.drawable.mis04,R.drawable.mis05};
     static int cle_img[] = {R.drawable.cle01,R.drawable.cle02,R.drawable.cle03,R.drawable.cle04,R.drawable.cle05};
     static boolean btn[] = {false, false, false, false, false};
+
+    private ImageButton menuButton;
 
     private MarkerOptions userMarker;
 
@@ -65,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 drawUser(latitude, longitude);
                 drawFestivalList(latitude, longitude);
                 drawPlaceList(latitude, longitude);
+
             }
         }
     }
@@ -81,25 +93,58 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         IntentFilter filter = new IntentFilter("PosData");
         registerReceiver(positionReceiver, filter);
 
+        menuButton = (ImageButton) findViewById(R.id.menubutton);
 
         android.app.FragmentManager fragmentManager = getFragmentManager();
         MapFragment mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
-
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent receiverIntent = new Intent(MainActivity.this, LocationReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, receiverIntent, 0);
 
-        final long period = 1000;
+        final long period = 1000 * 5;
         long time = SystemClock.currentThreadTimeMillis();
 
         alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, time+period, period, pendingIntent);
     }
 
+    public void missionOnClick(View v){
+        Intent Mission = new Intent(getApplicationContext(), MissionBoxActivity.class);
+        startActivity(Mission);
+    }
+
+    public void menuOnClick(View v){
+        IconizedMenu popup = new IconizedMenu(this, v);
+        MenuInflater inflater = popup.getMenuInflater();
+        Menu menu = popup.getMenu();
+
+        menuButton.setImageDrawable(getResources().getDrawable(R.drawable.menu_minus));
+
+        inflater.inflate(R.menu.action_menu, menu);
+        popup.setOnMenuItemClickListener(new IconizedMenu.OnMenuItemClickListener(){
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch(item.getItemId()) {
+                    case R.id.fest:
+                        Toast.makeText(getApplicationContext(), "filter", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        break;
+                }
+                    return false;
+            }
+        });
+        popup.setOnDismissListener(new IconizedMenu.OnDismissListener() {
+            @Override
+            public void onDismiss(IconizedMenu menu) {
+                menuButton.setImageDrawable(getResources().getDrawable(R.drawable.menu_plus));
+            }
+        });
+        popup.show();
+
+    }
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.action_menu, menu);
@@ -121,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         return true;
     }
-
+*/
     private void drawPlaceList(float x, float y){
         //get festival information from APIGetter
         APIGetter placeGetter = new APIGetter(APIGetter.ADJ_PLACE);
