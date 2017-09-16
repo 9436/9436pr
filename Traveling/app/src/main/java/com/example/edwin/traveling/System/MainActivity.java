@@ -1,6 +1,10 @@
 package com.example.edwin.traveling.System;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +21,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -67,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         final float START_Y=(float) 126.990899;
         LatLng start = new LatLng(START_X, START_Y);
 
-        drawMarker(googleMap, start, "시작점", "현재위치입니다");
+        drawMarker(googleMap, start, "시작점", "현재위치입니다", R.drawable.icon_player);
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(start));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
@@ -94,22 +100,50 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         for(int i=0;i<festivalList.size();i++){
             TravelPlace cursor = festivalList.get(i);
             LatLng point = new LatLng(cursor.getY(), cursor.getX());
-            drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName());
+            drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_festival);
         }
 
         for(int i=0;i<placeList.size();i++){
             TravelPlace cursor = placeList.get(i);
             LatLng point = new LatLng(cursor.getY(), cursor.getX());
-            drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName());
+
+            switch(cursor.getType()){
+                case TravelPlace.CULTURE:
+                    drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_festival);
+                    break;
+                case TravelPlace.FOOD:
+                    drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_festival);
+                    break;
+                case TravelPlace.REPORTS:
+                    drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_festival);
+                    break;
+                case TravelPlace.TOUR:
+                    drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_festival);
+                    break;
+            }
+
         }
 
     }
 
-    private void drawMarker(GoogleMap map, LatLng point, String title, String snippet){
+    private void drawMarker(GoogleMap map, LatLng point, String title, String snippet, int icon){
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(point);
+
+
+        BitmapDescriptor markerIcon = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), icon));
+        markerOptions.icon(markerIcon);
         markerOptions.title(title);
         markerOptions.snippet(snippet);
         map.addMarker(markerOptions);
+    }
+
+    private BitmapDescriptor getMarkerIconFromDrawable(Drawable drawable){
+        Canvas canvas = new Canvas();
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        canvas.setBitmap(bitmap);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        drawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 }
