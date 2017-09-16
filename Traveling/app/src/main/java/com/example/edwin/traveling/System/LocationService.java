@@ -94,6 +94,13 @@ public class LocationService extends Service {
             ex.printStackTrace();
         }
 
+        Log.d("TRIPLAY", ""+locListener.getLocation().getLatitude()+","+locListener.getLocation().getLongitude());
+
+        Intent posIntent = new Intent("PosData");
+        posIntent.putExtra("LA", (float) locListener.getLocation().getLatitude());
+        posIntent.putExtra("LO", (float) locListener.getLocation().getLongitude());
+        getApplicationContext().sendBroadcast(posIntent);
+
         return super.onStartCommand(intent, flags, startId);
     }
 
