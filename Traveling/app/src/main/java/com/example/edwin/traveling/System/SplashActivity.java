@@ -1,4 +1,4 @@
-package com.example.edwin.traveling.System.System;
+package com.example.edwin.traveling.System;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.edwin.traveling.R;
-import com.example.edwin.traveling.System.MainActivity;
 
 /**
  * Created by vskyl on 2017-09-16.

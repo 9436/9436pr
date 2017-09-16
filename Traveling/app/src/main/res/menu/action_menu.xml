@@ -8,29 +8,29 @@
 
     <item android:id="@+id/filterButton"
         android:title="filter"
-        android:icon="@drawable/filter"
+        android:icon="@drawable/menu_plus"
         app:showAsAction="always">
 
         <menu>
             <item android:id="@+id/fest"
-                android:title="축제"
-                android:icon="@drawable/icon_menu_festival"/>
+                android:title=""
+                android:icon="@drawable/menu_festival"/>
 
             <item android:id="@+id/tour"
-                android:title="여행지"
-                android:icon="@drawable/filter"/>
+                android:title=""
+                android:icon="@drawable/menu_tour"/>
 
             <item android:id="@+id/cult"
-                android:title="문화시설"
-                android:icon="@drawable/filter"/>
+                android:title=""
+                android:icon="@drawable/menu_culture"/>
 
             <item android:id="@+id/repo"
-                android:title="레포츠"
-                android:icon="@drawable/filter" />
+                android:title=""
+                android:icon="@drawable/menu_lesure" />
 
             <item android:id="@+id/food"
-                android:title="음식"
-                android:icon="@drawable/filter"/>
+                android:title=""
+                android:icon="@drawable/menu_food"/>
         </menu>
 
     </item>

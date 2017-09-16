@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.example.edwin.traveling.System.MainActivity">
 
     <android.support.v7.widget.Toolbar
@@ -12,7 +11,8 @@
         android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#e6b7b7">
+        android:background="#00ffffff"
+        android:elevation="2dp">
 
     </android.support.v7.widget.Toolbar>
 
@@ -24,4 +24,4 @@
         android:apiKey="AIzaSyAIp_H_ClT6Iz0yWFbaFVPX384jQQkbS-E"
         class="com.google.android.gms.maps.MapFragment"/>
 
-</LinearLayout>
+</FrameLayout>

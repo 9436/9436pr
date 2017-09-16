@@ -1,10 +1,14 @@
 package com.example.edwin.traveling.System;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.os.SystemClock;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,6 +47,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent receiverIntent = new Intent(MainActivity.this, LocationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, receiverIntent, 0);
+
+        final long period = 1000;
+        long time = SystemClock.currentThreadTimeMillis();
+
+        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, time+period, period, pendingIntent);
     }
 
     @Override
@@ -108,16 +121,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             LatLng point = new LatLng(cursor.getY(), cursor.getX());
             switch(cursor.getType()){
                 case TravelPlace.CULTURE:
-                    drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_festival);
+                    drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_culture);
                     break;
                 case TravelPlace.FOOD:
-                    drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_festival);
+                    drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_food);
                     break;
                 case TravelPlace.REPORTS:
-                    drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_festival);
+                    drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_lesure);
                     break;
                 case TravelPlace.TOUR:
-                    drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_festival);
+                    drawMarker(googleMap, point, cursor.getName(), cursor.getTypeName(), R.drawable.icon_tour);
                     break;
             }
 

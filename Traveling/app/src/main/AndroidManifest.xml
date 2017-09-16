@@ -8,6 +8,7 @@
 
     <uses-permission android:name="com.example.edwin.traveling.activity.locationapi.maps.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -16,7 +17,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon_launcher"
         android:label="TRIPLAY"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -27,7 +28,7 @@
             android:value="AIzaSyAIp_H_ClT6Iz0yWFbaFVPX384jQQkbS-E"
             />
 
-        <activity android:name=".System.System.SplashActivity">
+        <activity android:name=".System.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -38,6 +39,8 @@
         <activity android:name=".System.MissionBoxActivity"
             android:theme="@style/AppTheme.CustomTheme"/>
 
+        <receiver android:name=".System.LocationReceiver"/>
+        <service android:name=".System.LocationService"/>
     </application>
 
 </manifest>
