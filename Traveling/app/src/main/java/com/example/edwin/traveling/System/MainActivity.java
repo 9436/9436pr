@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     setPlaceInfo(latitude, longitude);
                 }
 
-                if(festivalCheck(newPos) > 0){
+                if(festivalCheck(newPos) >= 0){
                     PendingIntent pintent = PendingIntent.getActivity(MainActivity.this, 0, new Intent(getApplicationContext(), MainActivity.class),
                             PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -129,10 +129,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Location loc = new Location("target");
 
         for(int i=0;i<festivalList.size();i++){
-            loc.setLatitude( festivalList.get(i).getY() );
-            loc.setLongitude( festivalList.get(i).getX() );
+            loc.setLatitude( (double) festivalList.get(i).getY() );
+            loc.setLongitude( (double) festivalList.get(i).getX() );
 
-            if( pos.distanceTo(loc) < 50f){
+            Log.d("TRIPLAY", "dist:"+String.valueOf(pos.distanceTo(loc)));
+
+            if( pos.distanceTo(loc) < 100f){
+                Log.d("TRIPLAY", "Get Festival");
                 return i;
             }
         }
@@ -274,6 +277,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         festivalList = (ArrayList<TravelPlace>)festGetter.getResult();
+        //for test
+        festivalList.add(new TravelPlace("23554", TravelPlace.FESTIVAL, "오픈핵", 127.598130f, 37.824504f));
     }
 
     private void drawPlaceList(int selected){

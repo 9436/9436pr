@@ -97,6 +97,7 @@ public class MissionBoxActivity extends AppCompatActivity {
             Log.d("distance", i + ", " + distance[i]);
         }
         Log.d("distance", placeList.size() + " " + festivalList.size());
+        /*
         for(int i = placeList.size(); i < placeList.size() + festivalList.size() ; i++){
             place[i] = festivalList.get(i);
             locationB.setLatitude((double)place[i].getY());
@@ -105,8 +106,8 @@ public class MissionBoxActivity extends AppCompatActivity {
             distance[i] = locationA.distanceTo(locationB);
             Log.d("distance", i + ", " + distance[i]);
         }
-
-        for(int i = 0 ; i < placeList.size() + festivalList.size() ; i++){
+*/
+        for(int i = 0 ; i < placeList.size() ; i++){
             if(distance[i] < 13201920f){
                 btn[i] = true;
             }
