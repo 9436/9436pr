@@ -278,7 +278,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         festivalList = (ArrayList<TravelPlace>)festGetter.getResult();
         //for test
-        festivalList.add(new TravelPlace("23554", TravelPlace.FESTIVAL, "오픈핵", 127.598130f, 37.824504f));
+        /*
+        festivalList.add(new TravelPlace("23554", TravelPlace.FESTIVAL, "오픈핵", 127.598130f, 37.824504f));*/m
     }
 
     private void drawPlaceList(int selected){
