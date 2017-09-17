@@ -214,8 +214,8 @@ public class MissionBoxActivity extends AppCompatActivity {
     }
 
     public void Armode(View view) {
-        //ar버튼
-        //finish();
+        Intent intent = new Intent(getApplicationContext(), UnityPlayerActivity.class);
+        startActivity(intent);
     }
 
 }

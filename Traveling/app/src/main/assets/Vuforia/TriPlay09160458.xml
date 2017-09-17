@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="12PaperBox" size="1.000000 0.750000" />
+    <ImageTarget name="13Perspective" size="1.000000 0.750000" />
+    <ImageTarget name="14Perspective2" size="1.000000 0.750000" />
+    <ImageTarget name="15Pictogram" size="1.000000 0.750000" />
+    <ImageTarget name="16Postit" size="1.000000 0.750000" />
+    <ImageTarget name="17Stair" size="1.000000 1.333333" />
+    <ImageTarget name="18Stair2" size="1.000000 0.750000" />
+    <ImageTarget name="19Stone1" size="1.000000 0.750000" />
+    <ImageTarget name="Bathroom" size="1.000000 1.333333" />
+    <ImageTarget name="11OpenHack" size="1.000000 1.333333" />
+    <ImageTarget name="09Light" size="1.000000 1.333333" />
+    <ImageTarget name="08Light2" size="1.000000 1.333333" />
+    <ImageTarget name="07ItemInven" size="1.000000 0.750000" />
+    <ImageTarget name="06InnerDo" size="1.000000 0.750000" />
+    <ImageTarget name="05Bathroom" size="1.000000 0.750000" />
+    <ImageTarget name="04Garage2" size="1.000000 0.750000" />
+    <ImageTarget name="03Garage1" size="1.000000 0.750000" />
+    <ImageTarget name="02FireExtin" size="1.000000 0.750000" />
+    <ImageTarget name="01CheckinMes" size="1.000000 0.750000" />
+  </Tracking>
+</QCARConfig>
